@@ -12,6 +12,7 @@ export async function getStaticProps() {
     props: {
       allPostsData,
     },
+    // Added revalidate to refresh the posts when new pst is amde on wordpress page
     revalidate: 10,
   };
 }
