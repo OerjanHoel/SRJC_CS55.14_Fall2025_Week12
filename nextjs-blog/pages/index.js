@@ -12,6 +12,7 @@ export async function getStaticProps() {
     props: {
       allPostsData,
     },
+    revalidate: 10,
   };
 }
 // Function creates Home based on the importet 
