@@ -51,7 +51,7 @@ export async function getSortedPostsData() {
     return jsonObj.map(item => {
         return {
             id: item.ID.toString(),
-            title: item.post_title,
+            title: item.post_title
             //date: item.date
         }
     });
@@ -70,13 +70,15 @@ export async function getPostData(id) {
         console.log(error);
     }    
     
-    const jsonObj = JSON.parse(jsonString); // Varaiable that parses our JSON array objects to strings
+    const jsonObj = JSON.parse(jsonString.body); // Varaiable that parses our JSON array objects to strings
     
     // Give us the output from the mapping of the array
     const objReturned = jsonObj.filter(obj => {
     return obj.ID.toString() === id;
-    });
     
+    });
+    console.log(objReturned);
+
     // If statement gives a mesasge if the objects are not returned from JSON 
     if (objReturned.length === 0) {
         return {
