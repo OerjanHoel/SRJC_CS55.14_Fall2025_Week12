@@ -25,8 +25,8 @@ export default function Home({ allPostsData }) {
       </Head>
       <section className={utilStyles.headingMd}>
         <p>
-          Hello, my name is Oerjan and I am studying for my AS in Full Stack web development.
-          At the moment I am working as System administrator.
+          This website uses the 'got' node package to retrive the JSON data from the WordPress posts,
+          residing in the WP Database. 
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
