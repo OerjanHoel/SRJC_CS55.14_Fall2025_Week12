@@ -1,5 +1,5 @@
 import Layout from '../../components/layout'; // Imports the layout from compnents folder
-import { getPostData } from '../../lib/posts-json'; // Imports the code we need from new file posts-json
+import { getPostData, getAllPostIds } from '../../lib/posts-json'; // Imports the code we need from new file posts-json
 import Head from 'next/head'; // Imports head from Next.js
 // import Date from '../../components/date'; // Imports Date from the date module we installed
 import utilStyles from '../../styles/utils.module.css'; // Imports the CSS from utils.module.css file 
@@ -21,16 +21,16 @@ export default function Post({ postData }) {
   );
 }
 
-// Gets teh staic paths for the blog posts 
-/*export async function getStaticPaths() {
-  // Variable for the Post id's
-  const paths = getAllPostIds();
+// Gets the static paths for the blog posts
+export async function getStaticPaths() {
+  // getAllPostIds returns an array like [{ params: { id: '...' } }, ...]
+  const paths = await getAllPostIds();
   return {
     // If the path is not found it won't fall back
     paths,
     fallback: false,
   };
-} */
+}
 
 // Exports the Static Props from 
 export async function getStaticProps({ params }) {

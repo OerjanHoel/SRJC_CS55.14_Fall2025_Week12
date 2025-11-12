@@ -1,4 +1,5 @@
 
+// Import got package so you can get data from the URL
 import got from 'got';
 
 
@@ -11,13 +12,20 @@ export async function getAllPostIds() {
     let jsonString;
     try {
         jsonString = await got(dataURL);
-        console.log(jsonString.body)
+        // console.log(jsonString.body)
     } catch(error) {
-        jsonString.body = [];
-        console.log(error);
+        // on error, fall back to an empty array JSON string so JSON.parse won't throw
+        console.error('Failed to fetch posts JSON:', error.message || error);
+        jsonString = { body: '[]' };
     }
-    
-    const jsonObj = JSON.parse(jsonString.body);
+
+    let jsonObj;
+    try {
+        jsonObj = JSON.parse(jsonString.body);
+    } catch (err) {
+        console.error('Failed to parse posts JSON:', err.message || err);
+        jsonObj = [];
+    }
     // Writes  out the objects in the JSON array to temrinal
     console.log(jsonObj);
     // Give us the output from the mapping of the array
@@ -35,13 +43,19 @@ export async function getSortedPostsData() {
     let jsonString;
     try {
         jsonString = await got(dataURL);
-        console.log(jsonString.body)
+        // console.log(jsonString.body)
     } catch(error) {
-        jsonString.body = [];
-        console.log(error);
+        console.error('Failed to fetch posts JSON:', error.message || error);
+        jsonString = { body: '[]' };
     }
 
-     const jsonObj = JSON.parse(jsonString.body);
+    let jsonObj;
+    try {
+        jsonObj = JSON.parse(jsonString.body);
+    } catch (err) {
+        console.error('Failed to parse posts JSON:', err.message || err);
+        jsonObj = [];
+    }
 
     jsonObj.sort(function (a, b) {
         return a.post_title.localeCompare(b.post_title);
@@ -64,13 +78,19 @@ export async function getPostData(id) {
     let jsonString;
     try {
         jsonString = await got(dataURL);
-        console.log(jsonString.body)
+        // console.log(jsonString.body)
     } catch(error) {
-        jsonString.body = [];
-        console.log(error);
-    }    
-    
-    const jsonObj = JSON.parse(jsonString.body); // Varaiable that parses our JSON array objects to strings
+        console.error('Failed to fetch posts JSON:', error.message || error);
+        jsonString = { body: '[]' };
+    }
+
+    let jsonObj;
+    try {
+        jsonObj = JSON.parse(jsonString.body);
+    } catch (err) {
+        console.error('Failed to parse posts JSON:', err.message || err);
+        jsonObj = [];
+    }
     
     // Give us the output from the mapping of the array
     const objReturned = jsonObj.filter(obj => {
