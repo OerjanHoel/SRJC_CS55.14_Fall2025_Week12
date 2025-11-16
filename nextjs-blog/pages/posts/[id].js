@@ -6,16 +6,22 @@ import utilStyles from '../../styles/utils.module.css'; // Imports the CSS from 
 import Link from 'next/link'; // Imports the link function from Next.js
 
 
-// Exports the layout of the post data and adds CSS
-// Structures the data in to JSX
+// Render a single post. The JSON object use keys like `post_title` and `post_content`.
 export default function Post({ postData }) {
+  // postData may be the API object or the fallback { id, title: 'Not found' }
+  const title = postData.post_title || postData.title || 'Untitled';
+  const contentHtml = postData.post_content || postData.content || '';
+
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <h1 className={utilStyles.headingXl}>{title}</h1>
+
+        {/* The API returns HTML in `post_content` — render it as HTML. */}
+        <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
       </article>
     </Layout>
   );
